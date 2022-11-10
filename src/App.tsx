@@ -1,11 +1,13 @@
 import { useState } from "react";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
-  const [count, setCount] = useState(0);
   
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline bg-black">Hello world!</h1>
+      {/* <Login /> */}
+      <Register />
     </div>
   );
 }
