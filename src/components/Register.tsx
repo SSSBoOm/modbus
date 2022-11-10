@@ -20,7 +20,7 @@ const Register = () => {
     if (
       name.length >= 1 &&
       surname.length >= 1 &&
-      VEmail.test(email) === false &&
+      VEmail.test(email) === true &&
       phonenumber.split("")[0] === "0" &&
       phonenumber.length === 10 &&
       password.length >= 8
