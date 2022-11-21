@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Location, LocationType } from "../data/Location";
-
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 const Path = ({
     change,
     setChange,
@@ -34,44 +38,45 @@ const Path = ({
                 </div>
                 <div className="flex">
                     <div className="">
+                    <FormControl>
+                        <FormLabel id="demo-radio-buttons-group-label">ต้นทาง</FormLabel>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            name="radio-buttons-group"
+                        >
                         {Location.map((e: LocationType) => {
                             return (
                                 <div>
-                                    <input
-                                        type="radio"
-                                        name="location_start"
-                                        value={e.LId}
-                                        disabled={e.LId === obj_end}
-                                        checked={e.LId === obj_start}
-                                        onChange={(e) => {
-                                            setObj_start(parseInt(e.target.value));
+                                    <FormControlLabel value={e.LId}  disabled={e.LId === obj_end} control={<Radio />} label={e.Location} onChange={(e) => {
+                                            setObj_start(parseInt((e.target as HTMLTextAreaElement).value));
                                             setChange(true)
-                                        }}
-                                    />
-                                    {e.Location}
+                                        }} />
                                 </div>
                             );
                         })}
+                          </RadioGroup>
+                    </FormControl>  
                     </div>
                     <div className="">
+                    <FormControl>
+                        <FormLabel id="demo-radio-buttons-group-label">ต้นทาง</FormLabel>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            // defaultValue="1"
+                            name="radio-buttons-group"
+                        >
                         {Location.map((e: LocationType) => {
                             return (
                                 <div>
-                                    <input
-                                        type="radio"
-                                        name="location_end"
-                                        value={e.LId}
-                                        disabled={e.LId === obj_start}
-                                        checked={e.LId === obj_end}
-                                        onChange={(e) => {
-                                            setObj_end(parseInt(e.target.value));
+                                    <FormControlLabel value={e.LId}  disabled={e.LId === obj_start} control={<Radio />} label={e.Location} onChange={(e) => {
+                                            setObj_end(parseInt((e.target as HTMLTextAreaElement).value));
                                             setChange(true)
-                                        }}
-                                    />
-                                    {e.Location}
+                                        }} />
                                 </div>
                             );
                         })}
+                          </RadioGroup>
+                    </FormControl>  
                     </div>
                 </div>
             </div>

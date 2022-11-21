@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 import BookingDetail from "../components/BookingDetail";
 import BookingSelectTime from "../components/BookingSelectTime";
 import Path from "../components/Path";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 type TypeRoutePath = {
     bus_id: number;
@@ -62,13 +66,19 @@ const Booking = () => {
                                     setOpenTab(2);
                                 }
                             } else {
-                                alert("โปรดเลือกเส้นทาง");
+                                MySwal.fire({
+                                    title: <p>โปรดเลือกเส้นทาง</p>,
+                                    icon: "error",
+                                  });
                             }
                         } else if (openTab === 2) {
                             if (round_id !== 0) {
                                 setOpenTab(3);
                             } else {
-                                alert("โปรดเลือกช่วงเวลา");
+                                MySwal.fire({
+                                    title: <p>โปรดเลือกช่วงเวลา</p>,
+                                    icon: "error",
+                                  });
                             }
                         }
                     }}
