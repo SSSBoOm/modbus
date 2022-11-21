@@ -1,6 +1,7 @@
 import { warning } from "@remix-run/router";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import BookingDetail from "../components/BookingDetail";
 import BookingSelectTime from "../components/BookingSelectTime";
 import Path from "../components/Path";
 
@@ -8,7 +9,7 @@ type TypeRoutePath = {
     bus_id: number;
     location_start: number;
     location_end: number;
-    route_id: number;
+    round_id: number;
     time_start: number;
 }[];
 
@@ -17,6 +18,7 @@ const Booking = () => {
     const [change, setChange] = useState<boolean>(false);
     const [location_start, setLocation_start] = useState<number>(0);
     const [location_end, setLocation_end] = useState<number>(0);
+    const [round_id, setRound_id] = useState<number>(0);
     const [routePath, setRoutePath] = useState<TypeRoutePath>([]);
 
     const onLoadPath = () => {
@@ -28,8 +30,10 @@ const Booking = () => {
             .then((res) => {
                 setRoutePath(res.data);
                 setChange(false);
+                setOpenTab(2);
             });
     };
+
     return (
         <div className="p-10">
             <div className="flex justify-between border-2 border-yellow-200 bg-yellow-100 p-5 rounded-full">
@@ -50,17 +54,22 @@ const Booking = () => {
                 <button
                     className="rounded-xl p-2 bg-slate-300"
                     onClick={() => {
-                        if (openTab == 1) {
+                        if (openTab === 1) {
                             if (location_start !== 0 && location_end !== 0) {
                                 if (change) {
                                     onLoadPath();
+                                } else {
+                                    setOpenTab(2);
                                 }
-                                setOpenTab(2);
                             } else {
                                 alert("โปรดเลือกเส้นทาง");
                             }
-                        } else if (openTab == 2) {
-                            setOpenTab(3);
+                        } else if (openTab === 2) {
+                            if (round_id !== 0) {
+                                setOpenTab(3);
+                            } else {
+                                alert("โปรดเลือกช่วงเวลา");
+                            }
                         }
                     }}
                 >
@@ -83,12 +92,23 @@ const Booking = () => {
             )}
             {openTab === 2 ? (
                 <>
-                    <BookingSelectTime />
+                    <BookingSelectTime
+                        setOpen={setOpenTab}
+                        routePath={routePath}
+                        round_id={round_id}
+                        setRound_id={setRound_id}
+                    />
                 </>
             ) : (
                 <></>
             )}
-            {openTab === 3 ? <>3</> : <></>}
+            {openTab === 3 ? (
+                <>
+                    <BookingDetail />
+                </>
+            ) : (
+                <></>
+            )}
         </div>
     );
 };
