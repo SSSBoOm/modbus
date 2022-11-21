@@ -9,10 +9,12 @@ import Index from "./pages/Index";
 function App() {
     return (
         <div>
-            <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
+            {/* <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}> */}
+            <BrowserRouter>
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Index />} />
+                    <Route path="/booking" element={<Booking />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </BrowserRouter>

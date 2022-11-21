@@ -1,9 +1,94 @@
+import { warning } from "@remix-run/router";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import BookingSelectTime from "../components/BookingSelectTime";
+import Path from "../components/Path";
+
+type TypeRoutePath = {
+    bus_id: number;
+    location_start: number;
+    location_end: number;
+    route_id: number;
+    time_start: number;
+}[];
+
 const Booking = () => {
+    const [openTab, setOpenTab] = useState<number>(1);
+    const [change, setChange] = useState<boolean>(false);
+    const [location_start, setLocation_start] = useState<number>(0);
+    const [location_end, setLocation_end] = useState<number>(0);
+    const [routePath, setRoutePath] = useState<TypeRoutePath>([]);
+
+    const onLoadPath = () => {
+        axios
+            .get(
+                `https://api.modbus.sleepyboi.space/api/get/round/${location_start}/${location_end}`,
+                {}
+            )
+            .then((res) => {
+                setRoutePath(res.data);
+                setChange(false);
+            });
+    };
     return (
-        <div>
-            <section>
-                <a>fdk</a>
-            </section>
+        <div className="p-10">
+            <div className="flex justify-between border-2 border-yellow-200 bg-yellow-100 p-5 rounded-full">
+                {/* Button Previos */}
+                <button
+                    className="rounded-xl p-2 bg-slate-300"
+                    onClick={() => {
+                        if (openTab === 2) {
+                            setOpenTab(1);
+                        } else if (openTab === 3) {
+                            setOpenTab(2);
+                        }
+                    }}
+                >
+                    Previous
+                </button>
+                {/* Button Next */}
+                <button
+                    className="rounded-xl p-2 bg-slate-300"
+                    onClick={() => {
+                        if (openTab == 1) {
+                            if (location_start !== 0 && location_end !== 0) {
+                                if (change) {
+                                    onLoadPath();
+                                }
+                                setOpenTab(2);
+                            } else {
+                                alert("โปรดเลือกเส้นทาง");
+                            }
+                        } else if (openTab == 2) {
+                            setOpenTab(3);
+                        }
+                    }}
+                >
+                    Next
+                </button>
+            </div>
+            {openTab === 1 ? (
+                <>
+                    <Path
+                        change={change}
+                        setChange={setChange}
+                        obj_start={location_start}
+                        setObj_start={setLocation_start}
+                        obj_end={location_end}
+                        setObj_end={setLocation_end}
+                    />
+                </>
+            ) : (
+                <></>
+            )}
+            {openTab === 2 ? (
+                <>
+                    <BookingSelectTime />
+                </>
+            ) : (
+                <></>
+            )}
+            {openTab === 3 ? <>3</> : <></>}
         </div>
     );
 };

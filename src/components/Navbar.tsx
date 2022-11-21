@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="flex flex-wrap place-items-center">
             {open ? (
                 <>
-                    <Login obj={open} setObj={setOpen}/>
+                    <Login obj={open} setObj={setOpen} />
                 </>
             ) : (
                 <></>
@@ -38,7 +38,7 @@ const Navbar = () => {
                             </li>
                             <li>
                                 <Link
-                                    to="/"
+                                    to="/booking"
                                     className="p-3 text-blue-500 rounded-xl hover:bg-yellow-400 hover:border-2-yellow-400 hover:text-black"
                                 >
                                     จอง
@@ -103,7 +103,7 @@ const Navbar = () => {
                         ประวัติการจอง
                     </Link>
                     <Link
-                        to="/"
+                        to="/booking"
                         className="flex justify-center p-4 bg-yellow-100 hover:bg-yellow-100"
                     >
                         จอง
