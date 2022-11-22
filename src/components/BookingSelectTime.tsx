@@ -52,6 +52,7 @@ const BookingSelectTime = ({
                         return (
                             <div>
                                 <FormControlLabel
+                                    checked={round_id === e.round_id}
                                     value={e.round_id}
                                     control={<Radio />}
                                     label={
