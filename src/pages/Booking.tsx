@@ -19,10 +19,11 @@ type TypeRoutePath = {
 
 const Booking = () => {
     const [openTab, setOpenTab] = useState<number>(1);
+    const [dateSelect, setDateSelect] = useState<number>(1);
     const [change, setChange] = useState<boolean>(false);
     const [location_start, setLocation_start] = useState<number>(0);
     const [location_end, setLocation_end] = useState<number>(0);
-    const [round_id, setRound_id] = useState<number>(0);
+    const [selectround_id, setSelectround_id] = useState<number>(0);
     const [routePath, setRoutePath] = useState<TypeRoutePath>([]);
 
     const onLoadPath = () => {
@@ -34,7 +35,7 @@ const Booking = () => {
             .then((res) => {
                 setRoutePath(res.data);
                 setChange(false);
-                setRound_id(0);
+                setSelectround_id(0);
                 setOpenTab(2);
             });
     };
@@ -73,7 +74,7 @@ const Booking = () => {
                                   });
                             }
                         } else if (openTab === 2) {
-                            if (round_id !== 0) {
+                            if (selectround_id !== 0) {
                                 setOpenTab(3);
                             } else {
                                 MySwal.fire({
@@ -104,10 +105,12 @@ const Booking = () => {
             {openTab === 2 ? (
                 <>
                     <BookingSelectTime
+                        dateSelect={dateSelect}
+                        setDateSelect={setDateSelect}
                         setOpen={setOpenTab}
                         routePath={routePath}
-                        round_id={round_id}
-                        setRound_id={setRound_id}
+                        round_id={selectround_id}
+                        setRound_id={setSelectround_id}
                     />
                 </>
             ) : (
@@ -115,7 +118,11 @@ const Booking = () => {
             )}
             {openTab === 3 ? (
                 <>
-                    <BookingDetail />
+                    <BookingDetail
+                        location_start={location_start}
+                        location_end={location_end}
+                        date={dateSelect}
+                    />
                 </>
             ) : (
                 <></>

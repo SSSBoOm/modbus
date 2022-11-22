@@ -22,11 +22,15 @@ const BookingSelectTime = ({
     routePath,
     round_id,
     setRound_id,
+    dateSelect,
+    setDateSelect,
 }: {
     setOpen: React.Dispatch<React.SetStateAction<number>>;
     routePath: TypeRoutePath;
     round_id: number;
     setRound_id: React.Dispatch<React.SetStateAction<number>>;
+    dateSelect: number;
+    setDateSelect: React.Dispatch<React.SetStateAction<number>>;
 }) => {
     useEffect(() => {
         if (routePath.length === 0) {
@@ -66,10 +70,13 @@ const BookingSelectTime = ({
                                             hour12: false,
                                         }) + " น."
                                     }
-                                    onChange={(e) => {
+                                    onClick={(event) => {
+                                        setDateSelect(
+                                            e.time_start
+                                        )
                                         setRound_id(
                                             parseInt(
-                                                (e.target as HTMLInputElement)
+                                                (event.target as HTMLInputElement)
                                                     .value
                                             )
                                         );

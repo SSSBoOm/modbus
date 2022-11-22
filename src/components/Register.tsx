@@ -7,7 +7,7 @@ const Register = ({
     setObj,
     previous,
     setPrevious,
-}: {
+} : {
     obj?: boolean | string | number;
     setObj: React.Dispatch<React.SetStateAction<boolean>>;
     previous?: boolean | string | number;
@@ -19,7 +19,7 @@ const Register = ({
     const VEmail =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    const [userId, setUserId] = useState(String);
+    const [username, setUsername] = useState(String);
     const [name, setName] = useState(String);
     const [surname, setSurname] = useState(String);
     const [email, setEmail] = useState(String);
@@ -36,8 +36,8 @@ const Register = ({
             password.length >= 8
         ) {
             axios
-                .post("http://localhost:8080/api/auth/signup", {
-                    user_id: userId,
+                .post("http://api.modbus.sleepyboi.space/api/auth/signup", {
+                    username: username,
                     name: name,
                     surname: surname,
                     email: email,
@@ -46,11 +46,15 @@ const Register = ({
                 })
                 .then((res) => {
                     if (res.status === 200) {
-                        setOpen(false);
-                        // res.data.token
-                    } else if (res.status === 400) {
+                        // OK
+                        alert("สร้างบัญชีผู้ใช้สำเร็จ")
+                        setPrevious(!previous);
                     }
-                    console.log(res);
+                }).catch((res) => {
+                    if (res.response.status === 400) {
+                        // username
+                        alert("ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว");
+                    }
                 });
         } else {
             console.log("AAA");
@@ -58,7 +62,7 @@ const Register = ({
     };
 
     return (
-        <Transition.Root show={open} as={Fragment}>
+        <Transition.Root show={true} as={Fragment}>
             <Dialog
                 as="div"
                 className="relative z-10"
@@ -155,7 +159,7 @@ const Register = ({
                                                 onChange={(
                                                     e: React.FormEvent<HTMLInputElement>
                                                 ) => {
-                                                    setUserId(
+                                                    setUsername(
                                                         e.currentTarget.value
                                                     );
                                                     //   console.log(userId);

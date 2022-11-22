@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Register from "./Register";
 
 const Login = ({
@@ -14,8 +15,24 @@ const Login = ({
     const [register, setRegister] = useState(false);
     const cancelButtonRef = useRef(null);
 
-    const [userId, setUserId] = useState(String);
+    const [username, setUsername] = useState(String);
     const [password, setPassword] = useState(String);
+
+    const onSubmit = () => {
+        axios
+            .post("http://api.modbus.sleepyboi.space/api/auth/signin", {
+                username: username,
+                password: password,
+            })
+            .then((res) => {
+                console.log(res);
+            }).catch((res) => {
+                // username not found or password incorrect
+                if(res.response.status) {
+                    alert("ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง")
+                }
+            });
+    };
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -102,7 +119,7 @@ const Login = ({
                                                 onChange={(
                                                     e: React.FormEvent<HTMLInputElement>
                                                 ) => {
-                                                    setUserId(
+                                                    setUsername(
                                                         e.currentTarget.value
                                                     );
                                                     // console.log(userId);
@@ -130,6 +147,7 @@ const Login = ({
                                             <button
                                                 type="button"
                                                 className="inline-flex w-full justify-center rounded-xl bg-blue-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto sm:text-sm"
+                                                onClick={onSubmit}
                                             >
                                                 เข้าสู่ระบบ
                                             </button>
