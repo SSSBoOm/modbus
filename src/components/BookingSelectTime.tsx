@@ -64,8 +64,7 @@ const BookingSelectTime = ({
                                 <FormControlLabel
                                     value={e.round_id}
                                     control={<Radio />}
-                                    label={time_label
-                                    }
+                                    label={time_label}
                                     onChange={(e) => {
                                         setRound_id(
                                             parseInt(
