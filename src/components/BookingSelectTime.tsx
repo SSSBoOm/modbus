@@ -49,22 +49,22 @@ const BookingSelectTime = ({
                     name="radio-buttons-group"
                 >
                     {routePath.map((e) => {
-                        let time_label =
-                            new Date(e.time_start).toLocaleDateString("th-TH", {
-                                weekday: "long",
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                                hour: "numeric",
-                                minute: "numeric",
-                                hour12: false,
-                            }) + " น.";
                         return (
                             <div>
                                 <FormControlLabel
                                     value={e.round_id}
                                     control={<Radio />}
-                                    label={time_label}
+                                    label={
+                                        new Date(e.time_start).toLocaleDateString("th-TH", {
+                                            weekday: "long",
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                            hour: "numeric",
+                                            minute: "numeric",
+                                            hour12: false,
+                                        }) + " น."
+                                    }
                                     onChange={(e) => {
                                         setRound_id(
                                             parseInt(
