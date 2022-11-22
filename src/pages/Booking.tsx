@@ -34,6 +34,7 @@ const Booking = () => {
             .then((res) => {
                 setRoutePath(res.data);
                 setChange(false);
+                setRound_id(0);
                 setOpenTab(2);
             });
     };
