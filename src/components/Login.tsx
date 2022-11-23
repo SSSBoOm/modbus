@@ -20,7 +20,7 @@ const Login = ({
 
     const onSubmit = () => {
         axios
-            .post("http://api.modbus.sleepyboi.space/api/auth/signin", {
+            .post("https://api.modbus.sleepyboi.space/api/auth/signin", {
                 username: username,
                 password: password,
             })

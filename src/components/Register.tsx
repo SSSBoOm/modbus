@@ -36,7 +36,7 @@ const Register = ({
             password.length >= 8
         ) {
             axios
-                .post("http://api.modbus.sleepyboi.space/api/auth/signup", {
+                .post("https://api.modbus.sleepyboi.space/api/auth/signup", {
                     username: username,
                     name: name,
                     surname: surname,
