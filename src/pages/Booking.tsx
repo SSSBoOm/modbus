@@ -105,7 +105,6 @@ const Booking = () => {
             {openTab === 2 ? (
                 <>
                     <BookingSelectTime
-                        dateSelect={dateSelect}
                         setDateSelect={setDateSelect}
                         setOpen={setOpenTab}
                         routePath={routePath}
