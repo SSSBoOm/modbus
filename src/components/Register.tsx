@@ -45,7 +45,6 @@ const Register = ({
                     password: password,
                 })
                 .then((res) => {
-                    console.log(res);
                     if (res.status === 200) {
                         // OK
                         alert("สร้างบัญชีผู้ใช้สำเร็จ");
@@ -53,7 +52,7 @@ const Register = ({
                     }
                 })
                 .catch((error) => {
-                    if (error?.response?.status === 400) {
+                    if (error?.response?.status === 400 || error?.response?.statusText !== "OK") {
                         // username
                         alert("ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว");
                     }

@@ -28,7 +28,7 @@ const Login = ({
                 // console.log(res.data);
             }).catch((error) => {
                 // username not found or password incorrect
-                if(error?.response?.status) {
+                if(error?.response?.status || error?.response?.statusText !== "OK") {
                     alert("ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง")
                 }
             });
