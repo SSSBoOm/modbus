@@ -44,18 +44,21 @@ const Register = ({
                     mobile: phonenumber,
                     password: password,
                 })
-                .then((res) => {
-                    if (res?.status === 200) {
+                .then((result) => {
+                    if (result.status === 200) {
                         // OK
                         alert("สร้างบัญชีผู้ใช้สำเร็จ");
                         setPrevious(!previous);
                     }
                 })
                 .catch((error) => {
-                    if (error?.response?.status == 400 || error?.response?.statusText != "OK") {
+                    // if (
+                    //     error?.response?.status == 400 ||
+                    //     error?.response?.statusText != "OK"
+                    // ) {
                         // username
                         alert("ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว");
-                    }
+                    // }
                 });
         } else {
             console.log("AAA");
