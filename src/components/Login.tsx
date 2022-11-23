@@ -25,10 +25,10 @@ const Login = ({
                 password: password,
             })
             .then((res) => {
-                console.log(res);
-            }).catch((res) => {
+                // console.log(res.data);
+            }).catch((error) => {
                 // username not found or password incorrect
-                if(res.response.status) {
+                if(error?.response?.status) {
                     alert("ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง")
                 }
             });

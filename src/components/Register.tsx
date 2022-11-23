@@ -7,7 +7,7 @@ const Register = ({
     setObj,
     previous,
     setPrevious,
-} : {
+}: {
     obj?: boolean | string | number;
     setObj: React.Dispatch<React.SetStateAction<boolean>>;
     previous?: boolean | string | number;
@@ -45,13 +45,15 @@ const Register = ({
                     password: password,
                 })
                 .then((res) => {
+                    console.log(res);
                     if (res.status === 200) {
                         // OK
-                        alert("สร้างบัญชีผู้ใช้สำเร็จ")
+                        alert("สร้างบัญชีผู้ใช้สำเร็จ");
                         setPrevious(!previous);
                     }
-                }).catch((res) => {
-                    if (res.response.status === 400) {
+                })
+                .catch((error) => {
+                    if (error?.response?.status === 400) {
                         // username
                         alert("ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว");
                     }
@@ -99,12 +101,12 @@ const Register = ({
                                         type="button"
                                         className="absolute top-3 leftp-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                                         data-modal-toggle="popup-modal"
-                                        onClick={() => setPrevious(!previous)} 
+                                        onClick={() => setPrevious(!previous)}
                                     >
                                         <svg
                                             aria-hidden="true"
                                             className="w-5 h-5"
-                                            fill="currentColor" 
+                                            fill="currentColor"
                                             viewBox="0 0 30 30"
                                             xmlns="http://www.w3.org/2000/svg"
                                         >

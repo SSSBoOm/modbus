@@ -22,14 +22,12 @@ const BookingSelectTime = ({
     routePath,
     round_id,
     setRound_id,
-    dateSelect,
     setDateSelect,
 }: {
     setOpen: React.Dispatch<React.SetStateAction<number>>;
     routePath: TypeRoutePath;
     round_id: number;
     setRound_id: React.Dispatch<React.SetStateAction<number>>;
-    dateSelect: number;
     setDateSelect: React.Dispatch<React.SetStateAction<number>>;
 }) => {
     useEffect(() => {
