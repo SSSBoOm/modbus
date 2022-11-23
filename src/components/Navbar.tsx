@@ -1,10 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 
 const Navbar = () => {
     const [responsive, setResponsive] = useState(false);
     const [open, setOpen] = useState(false);
+
+    const [isLogin, setIsLogin] = useState<boolean>(false);
+
+    const Logout = () => {
+        localStorage.removeItem("accessToken");
+        setIsLogin(false);
+    };
+
+    useEffect(() => {
+        if (localStorage.getItem("accessToken") !== null) {
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
+        }
+    }, [localStorage.getItem("accessToken")]);
 
     return (
         <div className="flex flex-wrap place-items-center">
@@ -64,12 +79,21 @@ const Navbar = () => {
                         {/* <!-- Right --> */}
                         <div className="hidden xl:flex items-center space-x-5">
                             {/* <!-- Sign In / Register --> */}
-                            <button
-                                className="font-semibold font-heading px-5 py-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
-                                onClick={() => setOpen(true)}
-                            >
-                                Login
-                            </button>
+                            {!isLogin ? (
+                                <button
+                                    className="font-semibold font-heading px-5 py-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
+                                    onClick={() => setOpen(true)}
+                                >
+                                    Login
+                                </button>
+                            ) : (
+                                <button
+                                    className="font-semibold font-heading px-5 py-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
+                                    onClick={Logout}
+                                >
+                                    Logout
+                                </button>
+                            )}
                         </div>
                     </div>
                     {/* <!-- Responsive navbar --> */}

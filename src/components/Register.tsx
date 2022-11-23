@@ -52,13 +52,8 @@ const Register = ({
                     }
                 })
                 .catch((error) => {
-                    // if (
-                    //     error?.response?.status == 400 ||
-                    //     error?.response?.statusText != "OK"
-                    // ) {
-                        // username
-                        alert("ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว");
-                    // }
+                    // username
+                    alert("ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว");
                 });
         } else {
             console.log("AAA");
