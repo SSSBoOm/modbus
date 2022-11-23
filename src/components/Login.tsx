@@ -24,15 +24,21 @@ const Login = ({
                 username: username,
                 password: password,
             })
-            .then((res) => {
+            .then((result) => {
                 // console.log(res.data);
-                alert("สร้างบัญชีผู้ใช้สำเร็จ");
-                setObj(!obj);
-            }).catch((error) => {
-                // username not found or password incorrect
-                if(error?.response?.status == 400 || error?.response?.statusText != "OK") {
-                    alert("ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง")
+                if (result.status === 200) {
+                    alert("สร้างบัญชีผู้ใช้สำเร็จ");
+                    setObj(!obj);
                 }
+            })
+            .catch((error) => {
+                // username not found or password incorrect
+                // if (
+                //     error.response?.status == 400 ||
+                //     error.response?.statusText != "OK"
+                // ) {
+                    alert("ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง");
+                // }
             });
     };
 
