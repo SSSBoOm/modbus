@@ -22,15 +22,15 @@ const Path = ({
     setObj_end: React.Dispatch<React.SetStateAction<number>>;
 }) => {
     return (
-        <div className="flex justify-center m-2 p-12">
-            <div className="p-16 rounded-3xl w-8/12 bg-gray-200">
+        <div className="flex justify-center m-4">
+            <div className="py-6 md:p-12 rounded-3xl bg-gray-200">
                 <div className="flex justify-center">
-                    <div className="px-6 py-4 text-center bg-red-300 rounded-full">
+                    <div className="px-6 py-3 text-center bg-red-300 rounded-full">
                         เลือกเส้นทาง
                     </div>
                 </div>
-                <div className="flex">
-                    <div className="">
+                <div className="md:flex inline w-4/5 sm:w-full justify-between">
+                    <div className="px-16 pt-10 pb-2 md:py-16">
                         <FormControl>
                             <FormLabel id="demo-radio-buttons-group-label">
                                 ต้นทาง
@@ -65,7 +65,7 @@ const Path = ({
                             </RadioGroup>
                         </FormControl>
                     </div>
-                    <div className="">
+                    <div className="px-16 pt-10 pb-2 md:py-16">
                         <FormControl>
                             <FormLabel id="demo-radio-buttons-group-label">
                                 ต้นทาง

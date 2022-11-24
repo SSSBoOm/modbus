@@ -1,15 +1,21 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
 import Register from "./Register";
+
+const MySwal = withReactContent(Swal);
 
 const Login = ({
     obj,
     setObj,
+    ModalOn,
 }: {
     obj?: boolean | string | number;
     setObj: React.Dispatch<React.SetStateAction<boolean>>;
+    ModalOn?: string;
 }) => {
     const [open, setOpen] = useState(true);
     const [register, setRegister] = useState(false);
@@ -31,13 +37,19 @@ const Login = ({
                         "accessToken",
                         result.data.accessToken
                     );
-                    alert("สร้างบัญชีผู้ใช้สำเร็จ");
+                    MySwal.fire({
+                        title: <p>เขาสู่ระบบสำเร็จ</p>,
+                        icon: "success",
+                    });
                     setObj(!obj);
                 }
             })
             .catch((error) => {
                 // username not found or password incorrect
-                alert("ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง");
+                MySwal.fire({
+                    title: <p>ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง</p>,
+                    icon: "error",
+                });
             });
     };
 
@@ -74,29 +86,57 @@ const Login = ({
                         >
                             <Dialog.Panel className="border border-black relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                    <button
-                                        type="button"
-                                        className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                                        data-modal-toggle="popup-modal"
-                                        onClick={() => setObj(!obj)}
-                                    >
-                                        <svg
-                                            aria-hidden="true"
-                                            className="w-5 h-5"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg"
+                                    {ModalOn != null ? (
+                                        <Link to={ModalOn}>
+                                            <button
+                                                type="button"
+                                                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                                data-modal-toggle="popup-modal"
+                                                onClick={() => setObj(!obj)}
+                                            >
+                                                <svg
+                                                    aria-hidden="true"
+                                                    className="w-5 h-5"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fill-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"
+                                                    ></path>
+                                                </svg>
+                                                <span className="sr-only">
+                                                    Close modal
+                                                </span>
+                                            </button>
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                            data-modal-toggle="popup-modal"
+                                            onClick={() => setObj(!obj)}
                                         >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                        <span className="sr-only">
-                                            Close modal
-                                        </span>
-                                    </button>
+                                            <svg
+                                                aria-hidden="true"
+                                                className="w-5 h-5"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"
+                                                ></path>
+                                            </svg>
+                                            <span className="sr-only">
+                                                Close modal
+                                            </span>
+                                        </button>
+                                    )}
                                     <div className="flex justify-center mt-2 sm:flex sm:items-start">
                                         <Dialog.Title
                                             as="h3"
@@ -112,6 +152,7 @@ const Login = ({
                                                 setObj={setObj}
                                                 previous={register}
                                                 setPrevious={setRegister}
+                                                ModalOn={ModalOn}
                                             />
                                         </>
                                     ) : (

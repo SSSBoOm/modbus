@@ -6,7 +6,7 @@ const Navbar = () => {
     const [responsive, setResponsive] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [isLogin, setIsLogin] = useState(false);
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
@@ -14,10 +14,8 @@ const Navbar = () => {
     };
 
     useEffect(() => {
-        if (localStorage.getItem("accessToken") !== null) {
+        if (localStorage.getItem("accessToken") != null) {
             setIsLogin(true);
-        } else {
-            setIsLogin(false);
         }
     }, [localStorage.getItem("accessToken")]);
 
@@ -39,10 +37,10 @@ const Navbar = () => {
                             className="text-3xl font-bold font-heading"
                         >
                             {/* <img className="h-9" src="logo.png" alt="logo"> */}
-                            Logo Here
+                            Logo
                         </Link>
                         {/* <!-- Middle --> */}
-                        <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
+                        <ul className="hidden xl:flex px-4 mx-auto font-semibold font-heading space-x-12">
                             <li>
                                 <Link
                                     to="/"
@@ -79,19 +77,19 @@ const Navbar = () => {
                         {/* <!-- Right --> */}
                         <div className="hidden xl:flex items-center space-x-5">
                             {/* <!-- Sign In / Register --> */}
-                            {!isLogin ? (
-                                <button
-                                    className="font-semibold font-heading px-5 py-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
-                                    onClick={() => setOpen(true)}
-                                >
-                                    Login
-                                </button>
-                            ) : (
+                            {isLogin ? (
                                 <button
                                     className="font-semibold font-heading px-5 py-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
                                     onClick={Logout}
                                 >
                                     Logout
+                                </button>
+                            ) : (
+                                <button
+                                    className="font-semibold font-heading px-5 py-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
+                                    onClick={() => setOpen(true)}
+                                >
+                                    Login
                                 </button>
                             )}
                         </div>
@@ -144,6 +142,17 @@ const Navbar = () => {
                     >
                         ติดต่อ
                     </Link>
+
+                    {/* <!-- Sign In / Register --> */}
+                    {!isLogin ? (
+                        <div className="flex justify-center p-4 text-yellow-100 bg-blue-500 hover:bg-blue-700">
+                            <button onClick={() => setOpen(true)}>Login</button>
+                        </div>
+                    ) : (
+                        <div className="flex justify-center p-4 text-yellow-100 bg-blue-500 hover:bg-blue-700">
+                            <button onClick={Logout}>Logout</button>
+                        </div>
+                    )}
                 </div>
             ) : (
                 <div></div>

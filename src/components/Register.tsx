@@ -1,17 +1,24 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 const Register = ({
     obj,
     setObj,
     previous,
     setPrevious,
+    ModalOn,
 }: {
     obj?: boolean | string | number;
     setObj: React.Dispatch<React.SetStateAction<boolean>>;
     previous?: boolean | string | number;
     setPrevious: React.Dispatch<React.SetStateAction<boolean>>;
+    ModalOn?: string;
 }) => {
     const [open, setOpen] = useState(true);
     const cancelButtonRef = useRef(null);
@@ -47,16 +54,48 @@ const Register = ({
                 .then((result) => {
                     if (result.status === 200) {
                         // OK
-                        alert("สร้างบัญชีผู้ใช้สำเร็จ");
+                        MySwal.fire({
+                            title: <p>สร้างบัญชีผู้ใช้สำเร็จ</p>,
+                            icon: "success",
+                        });
                         setPrevious(!previous);
                     }
                 })
                 .catch((error) => {
                     // username
-                    alert("ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว");
+                    MySwal.fire({
+                        title: <p>ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว</p>,
+                        icon: "error",
+                    });
                 });
         } else {
-            console.log("AAA");
+            if (name.length === 0 && surname.length === 0) {
+                MySwal.fire({
+                    title: <p>ชื่อ นามสกุล ไม่ถูกต้อง</p>,
+                    icon: "error",
+                });
+            } 
+            else if (VEmail.test(email) === false) {
+                MySwal.fire({
+                    title: <p>อีเมลไม่ถูกต้อง</p>,
+                    icon: "error",
+                });
+            }
+            else if (
+                phonenumber.split("")[0] !== "0" &&
+                phonenumber.length !== 10
+            ) {
+                MySwal.fire({
+                    title: <p>เบอร์โทรศัพท์ไม่ถูกต้อง</p>,
+                    icon: "error",
+                });
+            }
+            else if (password.length < 8) {
+                MySwal.fire({
+                    title: <p>รหัสผ่านสั้นเกินไป</p>,
+                    icon: "error",
+                });
+            }
         }
     };
 
@@ -118,29 +157,61 @@ const Register = ({
                                         </span>
                                     </button>
                                     {/* Close */}
-                                    <button
-                                        type="button"
-                                        className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                                        data-modal-toggle="popup-modal"
-                                        onClick={() => setObj(!obj)}
-                                    >
-                                        <svg
-                                            aria-hidden="true"
-                                            className="w-5 h-5"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg"
+                                    {ModalOn != null ? (
+                                        <Link to={ModalOn}>
+                                            <button
+                                                type="button"
+                                                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                                data-modal-toggle="popup-modal"
+                                                onClick={() => {
+                                                    setObj(!obj);
+                                                }}
+                                            >
+                                                <svg
+                                                    aria-hidden="true"
+                                                    className="w-5 h-5"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fill-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"
+                                                    ></path>
+                                                </svg>
+                                                <span className="sr-only">
+                                                    Close modal
+                                                </span>
+                                            </button>
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                                            data-modal-toggle="popup-modal"
+                                            onClick={() => {
+                                                setObj(!obj);
+                                            }}
                                         >
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                clip-rule="evenodd"
-                                            ></path>
-                                        </svg>
-                                        <span className="sr-only">
-                                            Close modal
-                                        </span>
-                                    </button>
+                                            <svg
+                                                aria-hidden="true"
+                                                className="w-5 h-5"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"
+                                                ></path>
+                                            </svg>
+                                            <span className="sr-only">
+                                                Close modal
+                                            </span>
+                                        </button>
+                                    )}
                                     <div className="flex justify-center mt-2 sm:flex sm:items-start">
                                         <Dialog.Title
                                             as="h3"
