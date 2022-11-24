@@ -62,7 +62,7 @@ const Booking = () => {
                     {/* Button Previos */}
                     {openTab !== 1 ? (
                         <button
-                            className="md:p-3 md:w-24 w-20 p-2 md:text-base text-sm rounded-xl bg-slate-300"
+                            className="font-semibold font-heading md:p-3 md:w-24 w-20 p-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
                             onClick={() => {
                                 if (
                                     localStorage.getItem("accessToken") == null
@@ -85,7 +85,7 @@ const Booking = () => {
                     {/* Button Next */}
                     {openTab !== 3 ? (
                         <button
-                            className="md:p-3 md:w-24 w-20 p-2 md:text-base text-sm rounded-xl bg-slate-300"
+                            className="font-semibold font-heading md:p-3 md:w-24 w-20 p-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
                             onClick={() => {
                                 if (
                                     localStorage.getItem("accessToken") == null

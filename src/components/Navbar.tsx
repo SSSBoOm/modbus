@@ -11,6 +11,7 @@ const Navbar = () => {
     const Logout = () => {
         localStorage.removeItem("accessToken");
         setIsLogin(false);
+        setOpen(true);
     };
 
     useEffect(() => {
@@ -23,7 +24,7 @@ const Navbar = () => {
         <div className="flex flex-wrap place-items-center">
             {open ? (
                 <>
-                    <Login obj={open} setObj={setOpen} />
+                    <Login obj={open} setObj={setOpen} ModalOn="/" />
                 </>
             ) : (
                 <></>

@@ -23,9 +23,9 @@ const Path = ({
 }) => {
     return (
         <div className="flex justify-center m-4">
-            <div className="py-6 md:p-12 rounded-3xl bg-gray-200">
+            <div className="py-6 md:p-12 rounded-3xl bg-gray-50">
                 <div className="flex justify-center">
-                    <div className="px-6 py-3 text-center bg-red-300 rounded-full">
+                    <div className="px-6 py-3 text-center bg-white border-2 border-red-200 rounded-full">
                         เลือกเส้นทาง
                     </div>
                 </div>
@@ -68,7 +68,7 @@ const Path = ({
                     <div className="px-16 pt-10 pb-2 md:py-16">
                         <FormControl>
                             <FormLabel id="demo-radio-buttons-group-label">
-                                ต้นทาง
+                                ปลายทาง
                             </FormLabel>
                             <RadioGroup
                                 aria-labelledby="demo-radio-buttons-group-label"

@@ -37,8 +37,20 @@ const Login = ({
                         "accessToken",
                         result.data.accessToken
                     );
+                    localStorage.setItem(
+                        "name",
+                        result.data.name
+                    );
+                    localStorage.setItem(
+                        "surname",
+                        result.data.surname
+                    );
+                    localStorage.setItem(
+                        "username",
+                        result.data.username
+                    );
                     MySwal.fire({
-                        title: <p>เขาสู่ระบบสำเร็จ</p>,
+                        title: <p>เข้าสู่ระบบสำเร็จ</p>,
                         icon: "success",
                     });
                     setObj(!obj);

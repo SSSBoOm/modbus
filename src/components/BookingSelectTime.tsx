@@ -48,9 +48,9 @@ const BookingSelectTime = ({
     }, []);
     return (
         <div className="flex justify-center m-4">
-            <div className="py-6 md:p-12 rounded-3xl bg-gray-200">
+            <div className="py-6 md:p-12 rounded-3xl bg-gray-50">
                 <div className="flex justify-center">
-                    <div className="px-6 py-3 text-center bg-red-200 rounded-full">
+                    <div className="px-6 py-3 text-center bg-white border-2 border-red-200 rounded-full">
                         วันเวลา
                     </div>
                 </div>

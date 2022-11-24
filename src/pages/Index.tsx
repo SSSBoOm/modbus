@@ -1,7 +1,7 @@
 const Index = () => {
     return (
         <div>
-            asd
+            Hello, {localStorage.getItem("name")}
         </div>
     )
 }
