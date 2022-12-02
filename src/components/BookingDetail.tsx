@@ -39,10 +39,10 @@ const BookingDetail = ({
                             confirmButtonText: '<a href="/">OK</a>',
                         });
                     }
-                    console.log(result.data);
+                    // console.log(result.data);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                 });
         } else {
             setOpen(true);

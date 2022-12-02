@@ -47,7 +47,7 @@ const Navbar = () => {
                         <ul className="hidden xl:flex px-4 mx-auto font-semibold font-heading space-x-12">
                             <li>
                                 <Link
-                                    to="/"
+                                    to="/listbooking"
                                     className="p-3 text-blue-500 rounded-xl hover:bg-yellow-400 hover:border-2-yellow-400 hover:text-black"
                                 >
                                     ประวัติการจอง
@@ -123,7 +123,7 @@ const Navbar = () => {
             {responsive ? (
                 <div className="w-full flex-wrap text-blue-500">
                     <Link
-                        to="/"
+                        to="/listbooking"
                         className="flex justify-center p-4 bg-yellow-100 hover:bg-yellow-100"
                     >
                         ประวัติการจอง
