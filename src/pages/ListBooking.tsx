@@ -47,7 +47,6 @@ const ListBooking = () => {
                 })
                 .then((result) => {
                     setListBook(result.data);
-                    // console.log(result.data);
                 });
         }
         else {
@@ -65,8 +64,8 @@ const ListBooking = () => {
                 <></>
             )}
             <div className="">
-                <div className="text-center py-6 mt-2">
-                    <a className="md:text-2xl text-xl p-4 rounded-xl bg-amber-200">ประวัติการจอง</a>
+                <div className="text-center py-6 mt-4">
+                    <a className="md:text-2xl text-xl p-4 rounded-xl bg-yellow-400 border-yellow-400 border-2">ประวัติการจอง</a>
                 </div>
                 {listbook.map((data, index) => {
                     return (

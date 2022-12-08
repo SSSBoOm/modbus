@@ -49,7 +49,7 @@ const Booking = () => {
     }, [localStorage.getItem("accessToken")]);
 
     return (
-        <div className="p-10">
+        <div className="">
             {open ? (
                 <>
                     <Login obj={open} setObj={setOpen} ModalOn="/" />
@@ -57,75 +57,83 @@ const Booking = () => {
             ) : (
                 <></>
             )}
-            <div className="border-2 border-yellow-200 bg-yellow-100 p-6 rounded-2xl">
-                <div className="flex justify-between px-4">
-                    {/* Button Previos */}
-                    {openTab !== 1 ? (
-                        <button
-                            className="font-semibold font-heading md:p-3 md:w-24 w-20 p-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
-                            onClick={() => {
-                                if (
-                                    localStorage.getItem("accessToken") == null
-                                ) {
-                                    setOpen(true);
-                                } else {
-                                    if (openTab === 2) {
-                                        setOpenTab(1);
-                                    } else if (openTab === 3) {
-                                        setOpenTab(2);
+            <div className="p-6 rounded-2xl">
+                <div className="flex justify-center">
+                    <div className="lg:w-9/12 xl:w-6/12 w-full flex justify-between px-4">
+                        {/* Button Previos */}
+                        {openTab !== 1 ? (
+                            <button
+                                className="font-semibold font-heading md:p-3 md:w-24 w-20 p-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
+                                onClick={() => {
+                                    if (
+                                        localStorage.getItem("accessToken") ==
+                                        null
+                                    ) {
+                                        setOpen(true);
+                                    } else {
+                                        if (openTab === 2) {
+                                            setOpenTab(1);
+                                        } else if (openTab === 3) {
+                                            setOpenTab(2);
+                                        }
                                     }
-                                }
-                            }}
-                        >
-                            Previous
-                        </button>
-                    ) : (
-                        <a></a>
-                    )}
-                    {/* Button Next */}
-                    {openTab !== 3 ? (
-                        <button
-                            className="font-semibold font-heading md:p-3 md:w-24 w-20 p-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
-                            onClick={() => {
-                                if (
-                                    localStorage.getItem("accessToken") == null
-                                ) {
-                                    setOpen(true);
-                                } else {
-                                    if (openTab === 1) {
-                                        if (
-                                            location_start !== 0 &&
-                                            location_end !== 0
-                                        ) {
-                                            if (change) {
-                                                onLoadPath();
+                                }}
+                            >
+                                Previous
+                            </button>
+                        ) : (
+                            <a></a>
+                        )}
+                        {/* Button Next */}
+                        {openTab !== 3 ? (
+                            <button
+                                className="font-semibold font-heading md:p-3 md:w-24 w-20 p-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
+                                onClick={() => {
+                                    if (
+                                        localStorage.getItem("accessToken") ==
+                                        null
+                                    ) {
+                                        setOpen(true);
+                                    } else {
+                                        if (openTab === 1) {
+                                            if (
+                                                location_start !== 0 &&
+                                                location_end !== 0
+                                            ) {
+                                                if (change) {
+                                                    onLoadPath();
+                                                } else {
+                                                    setOpenTab(2);
+                                                }
                                             } else {
-                                                setOpenTab(2);
+                                                MySwal.fire({
+                                                    title: (
+                                                        <p>โปรดเลือกเส้นทาง</p>
+                                                    ),
+                                                    icon: "error",
+                                                });
                                             }
-                                        } else {
-                                            MySwal.fire({
-                                                title: <p>โปรดเลือกเส้นทาง</p>,
-                                                icon: "error",
-                                            });
-                                        }
-                                    } else if (openTab === 2) {
-                                        if (selectround_id !== 0) {
-                                            setOpenTab(3);
-                                        } else {
-                                            MySwal.fire({
-                                                title: <p>โปรดเลือกช่วงเวลา</p>,
-                                                icon: "error",
-                                            });
+                                        } else if (openTab === 2) {
+                                            if (selectround_id !== 0) {
+                                                setOpenTab(3);
+                                            } else {
+                                                MySwal.fire({
+                                                    title: (
+                                                        <p>โปรดเลือกช่วงเวลา</p>
+                                                    ),
+                                                    icon: "error",
+                                                });
+                                            }
                                         }
                                     }
-                                }
-                            }}
-                        >
-                            Next
-                        </button>
-                    ) : (
-                        <a></a>
-                    )}
+                                }}
+                            >
+                                Next
+                            </button>
+                        ) : (
+                            <a></a>
+                        )}
+                    </div>
                 </div>
                 {openTab === 1 ? (
                     <>

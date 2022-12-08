@@ -43,6 +43,23 @@ const ListBox = ({
             }) + " น."
         );
     };
+    const DateMB = () => {
+        return new Date(time_start).toLocaleDateString("th-TH", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+    };
+    const TimeMB = () => {
+        return (
+            new Date(time_start).toLocaleTimeString("th-TH", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: false,
+            }) + " น."
+        );
+    };
 
     const onCancel = () => {
         axios
@@ -69,69 +86,126 @@ const ListBox = ({
 
     return (
         <div className="flex justify-center container">
-            <div className="md:inline hidden m-2 w-2/5">
-                <Card align="center" size="lg" variant="outline">
-                    <CardHeader>
-                        <Heading size="md">{DateTime()}</Heading>
+            <div className="md:inline hidden m-4 w-2/5">
+                <Card
+                    align="center"
+                    size="lg"
+                    variant="outline"
+                    background="blue.400"
+                    rounded="2xl"
+                >
+                    <CardHeader className="">
+                        <Heading size="md" color="white">
+                            {DateTime()}
+                        </Heading>
                     </CardHeader>
                     <CardBody className="w-full">
                         <div className="w-full">
-                            <div className="p-2 border-2 rounded-xl mb-4">
-                                <div className="flex justify-center mb-2">
-                                    <a className="p-2 m-1 border-2 rounded-xl bg-amber-200">
-                                        ข้อมูลเส้นทาง
-                                    </a>
-                                </div>
-                                <div className="p-2 flex justify-center">
-                                    <div className="">
-                                        <div>
-                                            เดินทางจาก &nbsp;
-                                            {location_start_name}
+                            <div className="bg-white rounded-3xl mb-6">
+                                <div className="flex justify-center">
+                                    <div className="w-full">
+                                        <div className="text-center rounded-t-3xl pt-3 pb-2 bg-yellow-400 text-xl">
+                                            ข้อมูลการเดินทาง
                                         </div>
-                                        <div>
-                                            ไปยัง &nbsp;
-                                            {location_end_name}
+                                        <div className="p-2">
+                                            <div className="text-center">
+                                                เดินทางจาก &nbsp;
+                                                {location_start_name}
+                                            </div>
+                                            <div className="text-center">
+                                                ปลายทาง &nbsp;
+                                                {location_end_name}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="p-2 border-2 rounded-xl m">
-                                <div className="flex justify-center mb-2">
-                                    <a className="p-2 m-1 border-2 rounded-xl bg-amber-200">
-                                        ข้อมูลรถโดยสาร
-                                    </a>
-                                </div>
+                            <div className="rounded-3xl bg-white">
                                 <div className="flex justify-center">
-                                    หมายเลยทะเบียน &nbsp;{bus_id}
+                                    <div className="w-full">
+                                        <div className="text-center rounded-t-3xl pt-3 pb-2 bg-yellow-400 text-xl">
+                                            ข้อมูลรถโดยสาร
+                                        </div>
+                                        <div className="p-2">
+                                            <div className="text-center">
+                                                หมายเลยทะเบียน &nbsp;
+                                            </div>
+                                            <div className="text-center">
+                                                {bus_id}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div className="flex justify-center mt-4">
+                                <Button onClick={onCancel} colorScheme="red">
+                                    ยกเลิก
+                                </Button>
                             </div>
                         </div>
                     </CardBody>
-                    <CardFooter className="w-full flex justify-start">
-                        <Button onClick={onCancel} colorScheme="red">
-                            ยกเลิก
-                        </Button>
-                    </CardFooter>
                 </Card>
             </div>
             <div className="md:hidden m-2 w-10/12">
-                <Card align="center" size="md" variant="outline">
+                <Card
+                    align="center"
+                    size="md"
+                    variant="outline"
+                    background="blue.400"
+                    rounded="2xl"
+                >
                     <CardHeader>
-                        <Heading size="sm">{DateTime()}</Heading>
+                        <Heading size="sm" color="white">
+                            <a className="flex justify-center m-0">{DateMB()}</a>{" "}
+                            <br />{" "}
+                            <a className="flex justify-center m-0">เวลา {TimeMB()}</a>
+                        </Heading>
                     </CardHeader>
-                    <CardBody>
-                        {booking_ID}
-                        เดินทางจาก&nbsp;
-                        {location_start_name}
-                        ไป&nbsp;
-                        {location_end_name}&nbsp;
-                        {bus_id}
+                    <CardBody className="w-full">
+                        <div className="w-full">
+                            <div className="bg-white rounded-3xl mb-6">
+                                <div className="flex justify-center">
+                                    <div className="w-full">
+                                        <div className="text-center rounded-t-3xl pt-3 pb-2 bg-yellow-400 text-xl">
+                                            ข้อมูลการเดินทาง
+                                        </div>
+                                        <div className="p-2">
+                                            <div className="text-center">
+                                                เดินทางจาก &nbsp;
+                                                {location_start_name}
+                                            </div>
+                                            <div className="text-center">
+                                                ปลายทาง &nbsp;
+                                                {location_end_name}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="rounded-3xl bg-white">
+                                <div className="flex justify-center">
+                                    <div className="w-full">
+                                        <div className="text-center rounded-t-3xl pt-3 pb-2 bg-yellow-400 text-xl">
+                                            ข้อมูลรถโดยสาร
+                                        </div>
+                                        <div className="p-2">
+                                            <div className="text-center">
+                                                หมายเลยทะเบียน &nbsp;
+                                            </div>
+                                            <div className="text-center">
+                                                {bus_id}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex justify-center mt-4">
+                                <Button onClick={onCancel} colorScheme="red">
+                                    ยกเลิก
+                                </Button>
+                            </div>
+                        </div>
                     </CardBody>
-                    <CardFooter className="w-full flex justify-start">
-                        <Button onClick={onCancel} size="sm" colorScheme="red">
-                            ยกเลิก
-                        </Button>
-                    </CardFooter>
                 </Card>
             </div>
         </div>

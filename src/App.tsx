@@ -6,7 +6,7 @@ import Index from "./pages/Index";
 
 function App() {
     return (
-        <div className="text-sm md:text-base">
+        <div className="sm:text-sm md:text-md lg:text-base">
                 <BrowserRouter>
                     {/* <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}> */}
                     <Navbar />

@@ -75,7 +75,7 @@ const Navbar = () => {
                 <></>
             )}
             <Typography variant="h6" sx={{ my: 2 }}>
-                MUI
+                Modbus
             </Typography>
             <Divider />
             <List>
@@ -138,7 +138,7 @@ const Navbar = () => {
                         onClick={handleDrawerToggle}
                         sx={{ mr: 2, display: { sm: "none" } }}
                     >
-                        <MenuIcon />
+                    <MenuIcon />
                     </IconButton>
                     <Typography
                         variant="h6"
@@ -148,7 +148,7 @@ const Navbar = () => {
                             display: { xs: "block", sm: "block" },
                         }}
                     >
-                        MUI
+                        Modbus
                     </Typography>
                     <Box sx={{ display: { xs: "none", sm: "inline" } }}>
                         {navItems.map((item) => (
@@ -213,7 +213,7 @@ const Navbar = () => {
             </Box>
             <Box
                 component="main"
-                sx={{ p: 3, justifyContent: "center", display: "flex" }}
+                sx={{ p: 0, justifyContent: "center", display: "flex" }}
             >
                 <Toolbar />
                 <Typography></Typography>

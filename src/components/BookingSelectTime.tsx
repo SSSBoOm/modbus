@@ -47,60 +47,67 @@ const BookingSelectTime = ({
     }, []);
     return (
         <div className="flex justify-center m-4">
-            <div className="py-6 md:p-12 rounded-3xl bg-gray-50">
+            <div className="py-6 px-12 rounded-3xl bg-blue-400 w-full lg:w-3/4 xl:w-2/4">
                 <div className="flex justify-center">
-                    <div className="px-6 py-3 text-center bg-white border-2 border-red-200 rounded-full">
-                        วันเวลา
+                    <div className="px-6 py-3 text-center md:text-2xl text-xl text-white">
+                        เลือกรอบการเดินรถ
                     </div>
                 </div>
-                <div className="md:flex inline w-4/5 sm:w-full justify-between">
-                    <div className="px-16 pt-10 pb-2 md:py-16">
-                        <FormControl>
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                name="radio-buttons-group"
-                            >
-                                {routePath.map((e) => {
-                                    return (
-                                        <div>
-                                            <FormControlLabel
-                                                checked={
-                                                    round_id === e.round_id
-                                                }
-                                                value={e.round_id}
-                                                control={<Radio />}
-                                                label={
-                                                    new Date(
-                                                        e.time_start
-                                                    ).toLocaleDateString(
-                                                        "th-TH",
-                                                        {
-                                                            weekday: "long",
-                                                            year: "numeric",
-                                                            month: "long",
-                                                            day: "numeric",
-                                                            hour: "numeric",
-                                                            minute: "numeric",
-                                                            hour12: false,
-                                                        }
-                                                    ) + " น."
-                                                }
-                                                onClick={(event) => {
-                                                    setDateSelect(e.time_start);
-                                                    setRound_id(
-                                                        parseInt(
-                                                            (
-                                                                event.target as HTMLInputElement
-                                                            ).value
-                                                        )
-                                                    );
-                                                }}
-                                            />
-                                        </div>
-                                    );
-                                })}
-                            </RadioGroup>
-                        </FormControl>
+                <div className="sm:flex sm:justify-center flex-wrap mt-2 w-full">
+                    <div className="pb-2 sm:py-0 sm:mr-2 rounded-3xl w-full sm:w-4/5 bg-white">
+                        <div className="text-center text-lg p-4 bg-yellow-400 rounded-t-3xl w-full">
+                            วัน - เวลา
+                        </div>
+                        <div className="sm:px-12 px-4 mt-2 mb-2">
+                            <FormControl>
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    name="radio-buttons-group"
+                                >
+                                    {routePath.map((e) => {
+                                        return (
+                                            <div>
+                                                <FormControlLabel
+                                                    checked={
+                                                        round_id === e.round_id
+                                                    }
+                                                    value={e.round_id}
+                                                    control={<Radio />}
+                                                    label={
+                                                        new Date(
+                                                            e.time_start
+                                                        ).toLocaleDateString(
+                                                            "th-TH",
+                                                            {
+                                                                weekday: "long",
+                                                                year: "numeric",
+                                                                month: "long",
+                                                                day: "numeric",
+                                                                hour: "numeric",
+                                                                minute: "numeric",
+                                                                hour12: false,
+                                                            }
+                                                        ) + " น."
+                                                    }
+                                                    onClick={(event) => {
+                                                        setDateSelect(
+                                                            e.time_start
+                                                        );
+                                                        setRound_id(
+                                                            parseInt(
+                                                                (
+                                                                    event.target as HTMLInputElement
+                                                                ).value
+                                                            )
+                                                        );
+                                                    }}
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </RadioGroup>
+                            </FormControl>
+                        </div>
                     </div>
                 </div>
             </div>
