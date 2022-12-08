@@ -2,6 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import ListBox from "../components/ListBox";
+import Login from "../components/Login";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 type BookingsType = {
     id: number;
@@ -29,23 +34,36 @@ type BookingsType = {
 }[];
 
 const ListBooking = () => {
+    const [open, setOpen] = useState<boolean>(false);
     const [listbook, setListBook] = useState<BookingsType>([]);
 
     useEffect(() => {
-        axios
-            .get(`https://api.modbus.sleepyboi.space/api/get/booking`, {
-                headers: {
-                    "access-token": localStorage.getItem("accessToken"),
-                },
-            })
-            .then((result) => {
-                setListBook(result.data);
-                // console.log(result.data);
-            });
+        if(localStorage.getItem("accessToken") !== null) {
+            axios
+                .get(`https://api.modbus.sleepyboi.space/api/get/booking`, {
+                    headers: {
+                        "access-token": localStorage.getItem("accessToken"),
+                    },
+                })
+                .then((result) => {
+                    setListBook(result.data);
+                    // console.log(result.data);
+                });
+        }
+        else {
+            setOpen(true);
+        }
     }, []);
 
     return (
         <ChakraProvider>
+            {open ? (
+                <>
+                    <Login obj={open} setObj={setOpen} ModalOn="/" />
+                </>
+            ) : (
+                <></>
+            )}
             <div className="">
                 <div className="text-center py-6 mt-2">
                     <a className="md:text-2xl text-xl p-4 rounded-xl bg-amber-200">ประวัติการจอง</a>

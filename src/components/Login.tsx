@@ -23,8 +23,9 @@ const Login = ({
 
     const [username, setUsername] = useState(String);
     const [password, setPassword] = useState(String);
-
-    const onSubmit = () => {
+    
+    const onSubmit = (event: any) => {
+        event.preventDefault();
         axios
             .post("https://api.modbus.sleepyboi.space/api/auth/signin", {
                 username: username,

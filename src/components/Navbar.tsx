@@ -1,12 +1,50 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import * as React from "react";
+import PropTypes from "prop-types";
+import {
+    AppBar,
+    Box,
+    Divider,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+    Toolbar,
+    Typography,
+    Button,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import Login from "./Login";
 
-const Navbar = () => {
-    const [responsive, setResponsive] = useState(false);
-    const [open, setOpen] = useState(false);
+import { Link } from "react-router-dom";
 
-    const [isLogin, setIsLogin] = useState(false);
+const drawerWidth = 240;
+// const navItems = ["Home", "About", "Contact"];
+const navItems = [
+    {
+        Header: "หน้าแรก",
+        Link: "/",
+    },
+    {
+        Header: "ประวัติการจอง",
+        Link: "/listbooking",
+    },
+    {
+        Header: "จอง",
+        Link: "/booking",
+    },
+    {
+        Header: "เช็ครอบ",
+        Link: "/",
+    },
+];
+
+const Navbar = () => {
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+
+    const [isLogin, setIsLogin] = React.useState(false);
 
     const Logout = () => {
         localStorage.removeItem("accessToken");
@@ -17,152 +55,175 @@ const Navbar = () => {
         setOpen(true);
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (localStorage.getItem("accessToken") != null) {
             setIsLogin(true);
         }
     }, [localStorage.getItem("accessToken")]);
 
-    return (
-        <div className="flex flex-wrap place-items-center">
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
+
+    const drawer = (
+        <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
             {open ? (
                 <>
-                    <Login obj={open} setObj={setOpen} ModalOn="/" />
+                    <Login obj={open} setObj={setOpen} ModalOn="/" />{" "}
                 </>
             ) : (
                 <></>
             )}
-            <section className="relative mx-auto">
-                {/* <-- Left --> */}
-                <nav className="flex justify-between bg-yellow-200 text-black w-screen">
-                    <div className="px-5 xl:px-12 py-6 flex w-full items-center">
-                        <Link
-                            to="/"
-                            className="text-3xl font-bold font-heading"
+            <Typography variant="h6" sx={{ my: 2 }}>
+                MUI
+            </Typography>
+            <Divider />
+            <List>
+                {/* Navbar Mobile */}
+                {navItems.map((item) => (
+                    <ListItem key={item.Link} disablePadding>
+                        <ListItemButton
+                            sx={{ textAlign: "center" }}
+                            color="primary"
                         >
-                            {/* <img className="h-9" src="logo.png" alt="logo"> */}
-                            Logo
-                        </Link>
-                        {/* <!-- Middle --> */}
-                        <ul className="hidden xl:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                            <li>
-                                <Link
-                                    to="/listbooking"
-                                    className="p-3 text-blue-500 rounded-xl hover:bg-yellow-400 hover:border-2-yellow-400 hover:text-black"
-                                >
-                                    ประวัติการจอง
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/booking"
-                                    className="p-3 text-blue-500 rounded-xl hover:bg-yellow-400 hover:border-2-yellow-400 hover:text-black"
-                                >
-                                    จอง
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/"
-                                    className="p-3 text-blue-500 rounded-xl hover:bg-yellow-400 hover:border-2-yellow-400 hover:text-black"
-                                >
-                                    เช็ครอบ
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/"
-                                    className="p-3 text-blue-500 rounded-xl hover:bg-yellow-400 hover:border-2-yellow-400 hover:text-black"
-                                >
-                                    ติดต่อ
-                                </Link>
-                            </li>
-                        </ul>
-                        {/* <!-- Right --> */}
-                        <div className="hidden xl:flex items-center space-x-5">
-                            {/* <!-- Sign In / Register --> */}
-                            {isLogin ? (
-                                <button
-                                    className="font-semibold font-heading px-5 py-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
+                            <Link to={item.Link}>
+                                <ListItemText
+                                    primary={item.Header}
+                                    color="primary"
+                                    sx={{ color: "#000" }}
+                                />
+                            </Link>
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {/* Footer Navbar Mobile */}
+                <ListItem disablePadding>
+                    <ListItemButton sx={{ textAlign: "center" }}>
+                        {isLogin ? (
+                            <>
+                                <ListItemText
                                     onClick={Logout}
-                                >
-                                    Logout
-                                </button>
-                            ) : (
-                                <button
-                                    className="font-semibold font-heading px-5 py-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
-                                    onClick={() => setOpen(true)}
-                                >
-                                    Login
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                    {/* <!-- Responsive navbar --> */}
-                    <button
-                        onClick={() => setResponsive(!responsive)}
-                        className="navbar-burger self-center mr-12 xl:hidden"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 hover:text-gray-200"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16"
-                            />
-                        </svg>
-                    </button>
-                </nav>
-            </section>
-            {responsive ? (
-                <div className="w-full flex-wrap text-blue-500">
-                    <Link
-                        to="/listbooking"
-                        className="flex justify-center p-4 bg-yellow-100 hover:bg-yellow-100"
-                    >
-                        ประวัติการจอง
-                    </Link>
-                    <Link
-                        to="/booking"
-                        className="flex justify-center p-4 bg-yellow-100 hover:bg-yellow-100"
-                    >
-                        จอง
-                    </Link>
-                    <Link
-                        to="/"
-                        className="flex justify-center p-4 bg-yellow-100 hover:bg-yellow-100"
-                    >
-                        เช็ครอบ
-                    </Link>
-                    <Link
-                        to="/"
-                        className="flex justify-center p-4 bg-yellow-100 hover:bg-yellow-100"
-                    >
-                        ติดต่อ
-                    </Link>
-
-                    {/* <!-- Sign In / Register --> */}
-                    {!isLogin ? (
-                        <div className="flex justify-center p-4 text-yellow-100 bg-blue-500 hover:bg-blue-700">
-                            <button onClick={() => setOpen(true)}>Login</button>
-                        </div>
-                    ) : (
-                        <div className="flex justify-center p-4 text-yellow-100 bg-blue-500 hover:bg-blue-700">
-                            <button onClick={Logout}>Logout</button>
-                        </div>
-                    )}
-                </div>
-            ) : (
-                <div></div>
-            )}
-        </div>
+                                    primary="ออกจากระบบ"
+                                    sx={{ color: "#000" }}
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <ListItemText
+                                    onClick={() => {
+                                        setOpen(true);
+                                    }}
+                                    primary="เข้าสู่ระบบ"
+                                    sx={{ color: "#000" }}
+                                />
+                            </>
+                        )}
+                    </ListItemButton>
+                </ListItem>
+            </List>
+        </Box>
     );
+
+    return (
+        <Box sx={{ display: "flex" }}>
+            <AppBar component="nav">
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2, display: { sm: "none" } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography
+                        variant="h6"
+                        component="span"
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: "block", sm: "block" },
+                        }}
+                    >
+                        MUI
+                    </Typography>
+                    <Box sx={{ display: { xs: "none", sm: "inline" } }}>
+                        {navItems.map((item) => (
+                            <Link to={item.Link}>
+                                <Button
+                                    key={`/${item.Header.toUpperCase()}`}
+                                    sx={{ color: "#fff" }}
+                                    color="primary"
+                                >
+                                    {item.Header}
+                                </Button>
+                            </Link>
+                        ))}
+                    </Box>
+                    <Box sx={{ display: { xs: "none", sm: "block" } }}>
+                        {isLogin ? (
+                            <>
+                                <Button
+                                    key="LOGIN"
+                                    onClick={() => {
+                                        setOpen(true);
+                                    }}
+                                    sx={{ color: "#fff" }}
+                                >
+                                    ออกจากระบบ
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    key="LOGIN"
+                                    onClick={() => {
+                                        setOpen(true);
+                                    }}
+                                    sx={{ color: "#fff" }}
+                                >
+                                    เข้าสู่ระบบ
+                                </Button>
+                            </>
+                        )}
+                    </Box>
+                </Toolbar>
+            </AppBar>
+            <Box component="nav">
+                <Drawer
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        display: { xs: "block", sm: "none" },
+                        "& .MuiDrawer-paper": {
+                            boxSizing: "border-box",
+                            width: drawerWidth,
+                        },
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+            </Box>
+            <Box
+                component="main"
+                sx={{ p: 3, justifyContent: "center", display: "flex" }}
+            >
+                <Toolbar />
+                <Typography></Typography>
+            </Box>
+        </Box>
+    );
+};
+
+Navbar.propTypes = {
+    window: PropTypes.func,
 };
 
 export default Navbar;
