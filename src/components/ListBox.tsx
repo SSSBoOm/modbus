@@ -86,7 +86,7 @@ const ListBox = ({
 
     return (
         <div className="flex justify-center container">
-            <div className="md:inline hidden m-4 w-2/5">
+            <div className="lg:inline hidden m-4 w-3/5 xl:w-2/5">
                 <Card
                     align="center"
                     size="lg"
@@ -95,7 +95,7 @@ const ListBox = ({
                     rounded="2xl"
                 >
                     <CardHeader className="">
-                        <Heading size="md" color="white">
+                        <Heading size="lg" color="white">
                             {DateTime()}
                         </Heading>
                     </CardHeader>
@@ -146,10 +146,10 @@ const ListBox = ({
                     </CardBody>
                 </Card>
             </div>
-            <div className="md:hidden m-2 w-10/12">
+            <div className="lg:hidden m-2 w-10/12">
                 <Card
                     align="center"
-                    size="md"
+                    size="lg"
                     variant="outline"
                     background="blue.400"
                     rounded="2xl"
