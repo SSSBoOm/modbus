@@ -37,7 +37,10 @@ const BookingDetail = ({
                         MySwal.fire({
                             title: <p>จองสำเร็จ</p>,
                             icon: "success",
-                            confirmButtonText: '<a href="/">OK</a>',
+                            confirmButtonText: 'OK',
+                            preConfirm: () => {
+                                return window.location.href = "/";
+                            },
                         });
                     }
                     // console.log(result.data);

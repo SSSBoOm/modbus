@@ -78,7 +78,10 @@ const ListBox = ({
                     MySwal.fire({
                         title: <p>ยกเลิกการจองสำเร็จ</p>,
                         icon: "success",
-                        confirmButtonText: '<a href="/">OK</a>',
+                        confirmButtonText: 'OK',
+                        preConfirm: () => {
+                            return window.location.href = "/";
+                        },
                     });
                 }
             });
