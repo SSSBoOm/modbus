@@ -42,6 +42,7 @@ const BookingSelectTime = ({
                 title: <p>ไม่พบเส้นทาง</p>,
                 text: "กรุณาเลือกเส้นทางใหม่อีกครั้ง",
                 icon: "error",
+                allowOutsideClick: false
             });
         }
     }, []);

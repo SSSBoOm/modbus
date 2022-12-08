@@ -82,6 +82,7 @@ const ListBox = ({
                         preConfirm: () => {
                             return window.location.href = "/";
                         },
+                        allowOutsideClick: false
                     });
                 }
             });

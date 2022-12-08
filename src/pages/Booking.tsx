@@ -111,6 +111,7 @@ const Booking = () => {
                                                         <p>โปรดเลือกเส้นทาง</p>
                                                     ),
                                                     icon: "error",
+                                                    allowOutsideClick: false
                                                 });
                                             }
                                         } else if (openTab === 2) {
@@ -122,6 +123,7 @@ const Booking = () => {
                                                         <p>โปรดเลือกช่วงเวลา</p>
                                                     ),
                                                     icon: "error",
+                                                    allowOutsideClick: false
                                                 });
                                             }
                                         }

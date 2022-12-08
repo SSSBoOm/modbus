@@ -57,6 +57,7 @@ const Register = ({
                         MySwal.fire({
                             title: <p>สร้างบัญชีผู้ใช้สำเร็จ</p>,
                             icon: "success",
+                            allowOutsideClick: false
                         });
                         setPrevious(!previous);
                     }
@@ -66,6 +67,7 @@ const Register = ({
                     MySwal.fire({
                         title: <p>ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว</p>,
                         icon: "error",
+                        allowOutsideClick: false
                     });
                 });
         } else {
@@ -73,12 +75,14 @@ const Register = ({
                 MySwal.fire({
                     title: <p>ชื่อ นามสกุล ไม่ถูกต้อง</p>,
                     icon: "error",
+                    allowOutsideClick: false
                 });
             } 
             else if (VEmail.test(email) === false) {
                 MySwal.fire({
                     title: <p>อีเมลไม่ถูกต้อง</p>,
                     icon: "error",
+                    allowOutsideClick: false
                 });
             }
             else if (
@@ -88,12 +92,14 @@ const Register = ({
                 MySwal.fire({
                     title: <p>เบอร์โทรศัพท์ไม่ถูกต้อง</p>,
                     icon: "error",
+                    allowOutsideClick: false
                 });
             }
             else if (password.length < 8) {
                 MySwal.fire({
                     title: <p>รหัสผ่านสั้นเกินไป</p>,
                     icon: "error",
+                    allowOutsideClick: false
                 });
             }
         }

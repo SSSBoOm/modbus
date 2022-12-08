@@ -53,6 +53,7 @@ const Login = ({
                     MySwal.fire({
                         title: <p>เข้าสู่ระบบสำเร็จ</p>,
                         icon: "success",
+                        allowOutsideClick: false
                     });
                     setObj(!obj);
                 }
@@ -62,6 +63,7 @@ const Login = ({
                 MySwal.fire({
                     title: <p>ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง</p>,
                     icon: "error",
+                    allowOutsideClick: false
                 });
             });
     };

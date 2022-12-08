@@ -41,6 +41,7 @@ const BookingDetail = ({
                             preConfirm: () => {
                                 return window.location.href = "/";
                             },
+                            allowOutsideClick: false
                         });
                     }
                     // console.log(result.data);
