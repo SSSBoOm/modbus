@@ -20,7 +20,6 @@ import Login from "./Login";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
-// const navItems = ["Home", "About", "Contact"];
 const navItems = [
     {
         Header: "หน้าแรก",
@@ -138,7 +137,7 @@ const Navbar = () => {
                         onClick={handleDrawerToggle}
                         sx={{ mr: 2, display: { sm: "none" } }}
                     >
-                    <MenuIcon />
+                        <MenuIcon />
                     </IconButton>
                     <Typography
                         variant="h6"
@@ -168,9 +167,7 @@ const Navbar = () => {
                             <>
                                 <Button
                                     key="LOGIN"
-                                    onClick={() => {
-                                        setOpen(true);
-                                    }}
+                                    onClick={Logout}
                                     sx={{ color: "#fff" }}
                                 >
                                     ออกจากระบบ
