@@ -5,7 +5,6 @@ import withReactContent from "sweetalert2-react-content";
 import {
     InputLabel,
     Select,
-    SelectChangeEvent,
     MenuItem,
     TextField,
 } from "@mui/material";
@@ -96,7 +95,7 @@ const AddPath = () => {
                                     defaultValue={0}
                                     value={location_start}
                                     label="ต้นทาง"
-                                    onChange={(event: SelectChangeEvent) => {
+                                    onChange={(event) => {
                                         setLocation_start(
                                             event.target.value as number
                                         );
@@ -125,7 +124,7 @@ const AddPath = () => {
                                     id="demo-simple-select"
                                     value={location_end}
                                     label="ปลายทาง"
-                                    onChange={(event: SelectChangeEvent) => {
+                                    onChange={(event) => {
                                         setLocation_end(
                                             event.target.value as number
                                         );
@@ -154,7 +153,7 @@ const AddPath = () => {
                                     id="demo-simple-select"
                                     value={busSelect}
                                     label="ทะเบียน"
-                                    onChange={(event: SelectChangeEvent) => {
+                                    onChange={(event) => {
                                         setBusSelect(
                                             event.target.value as number
                                         );
