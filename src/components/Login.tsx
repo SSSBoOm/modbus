@@ -23,7 +23,7 @@ const Login = ({
 
     const [username, setUsername] = useState(String);
     const [password, setPassword] = useState(String);
-    
+
     const onSubmit = (event: any) => {
         event.preventDefault();
         axios
@@ -33,29 +33,50 @@ const Login = ({
             })
             .then((result) => {
                 // console.log(result.data);
-                if (result.status === 200) {
+                if (result.status === 200 && result.data.status) {
                     localStorage.setItem(
                         "accessToken",
                         result.data.accessToken
                     );
-                    localStorage.setItem(
-                        "name",
-                        result.data.name
-                    );
-                    localStorage.setItem(
-                        "surname",
-                        result.data.surname
-                    );
-                    localStorage.setItem(
-                        "username",
-                        result.data.username
-                    );
+                    localStorage.setItem("name", result.data.name);
+                    localStorage.setItem("surname", result.data.surname);
+                    localStorage.setItem("username", result.data.username);
+                    localStorage.setItem("role", result.data.role);
+                    // if (result.data.role === 1) {
+                    //     MySwal.fire({
+                    //         title: <p>เข้าสู่ระบบสำเร็จ</p>,
+                    //         icon: "success",
+                    //         allowOutsideClick: false,
+                    //         preConfirm: () => {
+                    //             return (window.location.href = "/");
+                    //         },
+                    //     });
+                    // } else {
+                    //     MySwal.fire({
+                    //         title: <p>เข้าสู่ระบบสำเร็จ</p>,
+                    //         icon: "success",
+                    //         allowOutsideClick: false,
+                    //         preConfirm: () => {
+                    //             return (window.location.href = "/");
+                    //         },
+                    //     });
+                    // }
                     MySwal.fire({
                         title: <p>เข้าสู่ระบบสำเร็จ</p>,
                         icon: "success",
-                        allowOutsideClick: false
+                        allowOutsideClick: false,
+                        preConfirm: () => {
+                            return (window.location.href = "/");
+                        },
                     });
                     setObj(!obj);
+                }
+                else {
+                    MySwal.fire({
+                        title: <p>ชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง</p>,
+                        icon: "error",
+                        allowOutsideClick: false,
+                    });
                 }
             })
             .catch((error) => {
@@ -63,7 +84,7 @@ const Login = ({
                 MySwal.fire({
                     title: <p>ไม่พบชื่อผู้ใช้งาน หรือ รหัสผ่่านไม่ถูกต้อง</p>,
                     icon: "error",
-                    allowOutsideClick: false
+                    allowOutsideClick: false,
                 });
             });
     };
