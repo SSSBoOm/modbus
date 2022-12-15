@@ -17,6 +17,7 @@ type TypeRoutePath = {
 }[];
 
 const BookingSelectTime = ({
+    OpenTap,
     setOpenTap,
     routePath,
     round_id,
@@ -24,6 +25,7 @@ const BookingSelectTime = ({
     setDateSelect,
     setOpen,
 }: {
+    OpenTap: number;
     setOpenTap: React.Dispatch<React.SetStateAction<number>>;
     routePath: TypeRoutePath;
     round_id: number;
@@ -36,8 +38,8 @@ const BookingSelectTime = ({
             setOpen(true);
         }
 
-        if (routePath.length === 0) {
-            setOpenTap(1);
+        if (routePath.length === 0 && OpenTap === 1) {
+            setOpenTap(0);
             MySwal.fire({
                 title: <p>ไม่พบเส้นทาง</p>,
                 text: "กรุณาเลือกเส้นทางใหม่อีกครั้ง",
@@ -45,7 +47,7 @@ const BookingSelectTime = ({
                 allowOutsideClick: false
             });
         }
-    }, []);
+    });
     return (
         <div className="flex justify-center m-4">
             <div className="py-6 px-12 rounded-3xl bg-blue-400 w-full lg:w-3/4 xl:w-2/4">

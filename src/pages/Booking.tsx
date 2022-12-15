@@ -1,13 +1,26 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import BookingDetail from "../components/BookingDetail";
 import BookingSelectTime from "../components/BookingSelectTime";
 import Path from "../components/Path";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Login from "../components/Login";
+import {
+    Box,
+    Stepper,
+    Step,
+    StepLabel,
+    Button,
+} from "@mui/material";
 
 const MySwal = withReactContent(Swal);
+
+const steps = [
+    "Select Location",
+    "Select Time",
+    "Confirm Booking",
+];
 
 type TypeRoutePath = {
     bus_id: number;
@@ -18,7 +31,6 @@ type TypeRoutePath = {
 }[];
 
 const Booking = () => {
-    const [openTab, setOpenTab] = useState<number>(1);
     const [dateSelect, setDateSelect] = useState<number>(1);
     const [change, setChange] = useState<boolean>(false);
     const [location_start, setLocation_start] = useState<number>(0);
@@ -28,7 +40,9 @@ const Booking = () => {
 
     const [open, setOpen] = useState(false);
 
-    const onLoadPath = () => {
+    const [activeStep, setActiveStep] = useState(0);
+
+    useEffect(() => {
         axios
             .get(
                 `https://api.modbus.sleepyboi.space/api/get/round/${location_start}/${location_end}`,
@@ -38,8 +52,21 @@ const Booking = () => {
                 setRoutePath(res.data);
                 setChange(false);
                 setSelectround_id(0);
-                setOpenTab(2);
             });
+    }, [change]);
+
+    const handleNext = () => {
+        if (localStorage.getItem("accessToken") == null) {
+            setOpen(true);
+        }
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        if (localStorage.getItem("accessToken") == null) {
+            setOpen(true);
+        }
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
     useEffect(() => {
@@ -58,86 +85,26 @@ const Booking = () => {
                 <></>
             )}
             <div className="p-6 rounded-2xl">
-                <div className="flex justify-center">
-                    <div className="lg:w-9/12 xl:w-6/12 w-full flex justify-between px-4">
-                        {/* Button Previos */}
-                        {openTab !== 1 ? (
-                            <button
-                                className="font-semibold font-heading md:p-3 md:w-24 w-20 p-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
-                                onClick={() => {
-                                    if (
-                                        localStorage.getItem("accessToken") ==
-                                        null
-                                    ) {
-                                        setOpen(true);
-                                    } else {
-                                        if (openTab === 2) {
-                                            setOpenTab(1);
-                                        } else if (openTab === 3) {
-                                            setOpenTab(2);
-                                        }
-                                    }
-                                }}
-                            >
-                                Previous
-                            </button>
-                        ) : (
-                            <a></a>
-                        )}
-                        {/* Button Next */}
-                        {openTab !== 3 ? (
-                            <button
-                                className="font-semibold font-heading md:p-3 md:w-24 w-20 p-2 rounded-md bg-blue-300 border-2 border-blue-300 hover:bg-white hover:text-blue-500"
-                                onClick={() => {
-                                    if (
-                                        localStorage.getItem("accessToken") ==
-                                        null
-                                    ) {
-                                        setOpen(true);
-                                    } else {
-                                        if (openTab === 1) {
-                                            if (
-                                                location_start !== 0 &&
-                                                location_end !== 0
-                                            ) {
-                                                if (change) {
-                                                    onLoadPath();
-                                                } else {
-                                                    setOpenTab(2);
-                                                }
-                                            } else {
-                                                MySwal.fire({
-                                                    title: (
-                                                        <p>โปรดเลือกเส้นทาง</p>
-                                                    ),
-                                                    icon: "error",
-                                                    allowOutsideClick: false
-                                                });
-                                            }
-                                        } else if (openTab === 2) {
-                                            if (selectround_id !== 0) {
-                                                setOpenTab(3);
-                                            } else {
-                                                MySwal.fire({
-                                                    title: (
-                                                        <p>โปรดเลือกช่วงเวลา</p>
-                                                    ),
-                                                    icon: "error",
-                                                    allowOutsideClick: false
-                                                });
-                                            }
-                                        }
-                                    }
-                                }}
-                            >
-                                Next
-                            </button>
-                        ) : (
-                            <a></a>
-                        )}
+                <div className="flex justify-center p-6">
+                    <div className="">
+                        <Stepper activeStep={activeStep}>
+                            {steps.map((label, index) => {
+                                const stepProps: { completed?: boolean } = {};
+                                const labelProps: {
+                                    optional?: React.ReactNode;
+                                } = {};
+                                return (
+                                    <Step key={label} {...stepProps}>
+                                        <StepLabel {...labelProps}>
+                                            {label}
+                                        </StepLabel>
+                                    </Step>
+                                );
+                            })}
+                        </Stepper>
                     </div>
                 </div>
-                {openTab === 1 ? (
+                {activeStep === 0 ? (
                     <>
                         <Path
                             change={change}
@@ -151,11 +118,12 @@ const Booking = () => {
                 ) : (
                     <></>
                 )}
-                {openTab === 2 ? (
+                {activeStep === 1 ? (
                     <>
                         <BookingSelectTime
+                            OpenTap={activeStep}
+                            setOpenTap={setActiveStep}
                             setDateSelect={setDateSelect}
-                            setOpenTap={setOpenTab}
                             routePath={routePath}
                             round_id={selectround_id}
                             setRound_id={setSelectround_id}
@@ -165,7 +133,7 @@ const Booking = () => {
                 ) : (
                     <></>
                 )}
-                {openTab === 3 ? (
+                {activeStep === 2 ? (
                     <>
                         <BookingDetail
                             round_id={selectround_id}
@@ -178,6 +146,26 @@ const Booking = () => {
                 ) : (
                     <></>
                 )}
+                <div className="flex justify-center">
+                    <div className="lg:w-9/12 xl:w-6/12 w-full p-2">
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                            <Button
+                                color="inherit"
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                sx={{ mr: 1 }}
+                            >
+                                Back
+                            </Button>
+                            <Box sx={{ flex: "1 1 auto" }} />
+                            <Button onClick={handleNext}>
+                                {activeStep === steps.length - 1
+                                    ? null
+                                    : "Next"}
+                            </Button>
+                        </Box>
+                    </div>
+                </div>
             </div>
         </div>
     );
