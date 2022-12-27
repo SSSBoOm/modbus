@@ -42,25 +42,6 @@ const Login = ({
                     localStorage.setItem("surname", result.data.surname);
                     localStorage.setItem("username", result.data.username);
                     localStorage.setItem("role", result.data.role);
-                    // if (result.data.role === 1) {
-                    //     MySwal.fire({
-                    //         title: <p>เข้าสู่ระบบสำเร็จ</p>,
-                    //         icon: "success",
-                    //         allowOutsideClick: false,
-                    //         preConfirm: () => {
-                    //             return (window.location.href = "/");
-                    //         },
-                    //     });
-                    // } else {
-                    //     MySwal.fire({
-                    //         title: <p>เข้าสู่ระบบสำเร็จ</p>,
-                    //         icon: "success",
-                    //         allowOutsideClick: false,
-                    //         preConfirm: () => {
-                    //             return (window.location.href = "/");
-                    //         },
-                    //     });
-                    // }
                     MySwal.fire({
                         title: <p>เข้าสู่ระบบสำเร็จ</p>,
                         icon: "success",
@@ -88,6 +69,12 @@ const Login = ({
                 });
             });
     };
+
+    useEffect(() => {
+        if(localStorage.getItem("accessToken") !== null) {
+            setOpen(false);
+        }
+    }, [])
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -188,6 +175,8 @@ const Login = ({
                                                 setObj={setObj}
                                                 previous={register}
                                                 setPrevious={setRegister}
+                                                previousprevious={obj}
+                                                setPreviousPrevious={setObj}
                                                 ModalOn={ModalOn}
                                             />
                                         </>

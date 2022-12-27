@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -11,13 +11,17 @@ const Register = ({
     obj,
     setObj,
     previous,
+    previousprevious,
     setPrevious,
+    setPreviousPrevious,
     ModalOn,
 }: {
     obj?: boolean | string | number;
     setObj: React.Dispatch<React.SetStateAction<boolean>>;
     previous?: boolean | string | number;
     setPrevious: React.Dispatch<React.SetStateAction<boolean>>;
+    previousprevious?: boolean | string | number;
+    setPreviousPrevious: React.Dispatch<React.SetStateAction<boolean>>;
     ModalOn?: string;
 }) => {
     const [open, setOpen] = useState(true);
@@ -52,14 +56,24 @@ const Register = ({
                     password: password,
                 })
                 .then((result) => {
-                    if (result.status === 200) {
+                    // console.log(result.data);
+                    if (result.status === 200 && result.data.status) {
                         // OK
+                        localStorage.setItem(
+                            "accessToken",
+                            result.data.accessToken
+                        );
+                        localStorage.setItem("name", result.data.name);
+                        localStorage.setItem("surname", result.data.surname);
+                        localStorage.setItem("username", result.data.username);
+                        localStorage.setItem("role", result.data.role);
                         MySwal.fire({
                             title: <p>สร้างบัญชีผู้ใช้สำเร็จ</p>,
                             icon: "success",
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         });
                         setPrevious(!previous);
+                        setPreviousPrevious(!previousprevious);
                     }
                 })
                 .catch((error) => {
@@ -67,7 +81,7 @@ const Register = ({
                     MySwal.fire({
                         title: <p>ซื่อผู้ใช้งาน ถูกใช้ไปแล้ว</p>,
                         icon: "error",
-                        allowOutsideClick: false
+                        allowOutsideClick: false,
                     });
                 });
         } else {
@@ -75,35 +89,38 @@ const Register = ({
                 MySwal.fire({
                     title: <p>ชื่อ นามสกุล ไม่ถูกต้อง</p>,
                     icon: "error",
-                    allowOutsideClick: false
+                    allowOutsideClick: false,
                 });
-            } 
-            else if (VEmail.test(email) === false) {
+            } else if (VEmail.test(email) === false) {
                 MySwal.fire({
                     title: <p>อีเมลไม่ถูกต้อง</p>,
                     icon: "error",
-                    allowOutsideClick: false
+                    allowOutsideClick: false,
                 });
-            }
-            else if (
+            } else if (
                 phonenumber.split("")[0] !== "0" &&
                 phonenumber.length !== 10
             ) {
                 MySwal.fire({
                     title: <p>เบอร์โทรศัพท์ไม่ถูกต้อง</p>,
                     icon: "error",
-                    allowOutsideClick: false
+                    allowOutsideClick: false,
                 });
-            }
-            else if (password.length < 8) {
+            } else if (password.length < 8) {
                 MySwal.fire({
                     title: <p>รหัสผ่านสั้นเกินไป</p>,
                     icon: "error",
-                    allowOutsideClick: false
+                    allowOutsideClick: false,
                 });
             }
         }
     };
+
+    useEffect(() => {
+        if(localStorage.getItem("accessToken") !== null) {
+            setOpen(false);
+        }
+    }, [])
 
     return (
         <Transition.Root show={true} as={Fragment}>

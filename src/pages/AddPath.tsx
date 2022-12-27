@@ -2,12 +2,7 @@ import React from "react";
 import FormControl from "@mui/material/FormControl";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import {
-    InputLabel,
-    Select,
-    MenuItem,
-    TextField,
-} from "@mui/material";
+import { InputLabel, Select, MenuItem, TextField } from "@mui/material";
 import { Location, LocationType } from "../data/Location";
 import axios from "axios";
 import { Dayjs } from "dayjs";
@@ -106,7 +101,11 @@ const AddPath = () => {
                                             <MenuItem value={e.LId}>
                                                 {e.Location}
                                             </MenuItem>
-                                        ) : null;
+                                        ) : (
+                                            <MenuItem value={e.LId} disabled>
+                                                {e.Location}
+                                            </MenuItem>
+                                        );
                                     })}
                                 </Select>
                             </FormControl>
@@ -135,7 +134,11 @@ const AddPath = () => {
                                             <MenuItem value={e.LId}>
                                                 {e.Location}
                                             </MenuItem>
-                                        ) : null;
+                                        ) : (
+                                            <MenuItem value={e.LId} disabled>
+                                                {e.Location}
+                                            </MenuItem>
+                                        );
                                     })}
                                 </Select>
                             </FormControl>
